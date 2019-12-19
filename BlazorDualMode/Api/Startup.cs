@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -15,9 +16,12 @@ namespace BlazorDualMode.Api
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpClient("DefaultHttpClient", (serviceProvider, httpClient) =>
             {
-                httpClient.BaseAddress = new Uri(serviceProvider.GetRequiredService<IConfiguration>()["ApiServerAddress"]);
+                var requestUrl = new Uri(serviceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext.Request.GetDisplayUrl());
+                var baseUrl = requestUrl.GetLeftPart(UriPartial.Authority);
+                httpClient.BaseAddress = new Uri(baseUrl);
             });
             services.AddTransient(c => c.GetRequiredService<IHttpClientFactory>().CreateClient("DefaultHttpClient"));
             services.AddMvc();
