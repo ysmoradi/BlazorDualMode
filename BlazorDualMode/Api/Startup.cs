@@ -17,7 +17,7 @@ namespace BlazorDualMode.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddHttpClient("DefaultHttpClient", (serviceProvider, httpClient) =>
+            services.AddHttpClient("DefaultHttpClient", (serviceProvider, httpClient) => /*This HtmlClient is being used in PreRendering of BlazorClient only. See Pages\_Host_Client.cshtml */
             {
                 var requestUrl = new Uri(serviceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext.Request.GetDisplayUrl());
                 var baseUrl = requestUrl.GetLeftPart(UriPartial.Authority);
