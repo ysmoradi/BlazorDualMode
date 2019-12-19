@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.IO.Compression;
 using System.Linq;
+using System.Net.Http;
 
 namespace BlazorDualMode.Api
 {
@@ -12,6 +15,11 @@ namespace BlazorDualMode.Api
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient("DefaultHttpClient", (serviceProvider, httpClient) =>
+            {
+                httpClient.BaseAddress = new Uri(serviceProvider.GetRequiredService<IConfiguration>()["ApiServerAddress"]);
+            });
+            services.AddTransient(c => c.GetRequiredService<IHttpClientFactory>().CreateClient("DefaultHttpClient"));
             services.AddMvc();
             services.AddResponseCompression(opts =>
             {
@@ -41,7 +49,7 @@ namespace BlazorDualMode.Api
             {
                 endpoints.MapDefaultControllerRoute();
 #if BlazorClient
-                endpoints.MapFallbackToClientSideBlazor<Web.Startup>("index.html");
+                endpoints.MapFallbackToPage("/_Host_Client");
 #endif
             });
         }

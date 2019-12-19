@@ -64,7 +64,7 @@ namespace BlazorDualMode.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();
-                endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapFallbackToPage("/_Host_Server");
             });
         }
 #endif
