@@ -1,0 +1,10 @@
+<Project>
+  
+  <PropertyGroup>
+    <BlazorMode>Client</BlazorMode>
+    <DefineConstants Condition=" '$(BlazorMode)' == 'Client' ">$(DefineConstants);BlazorClient</DefineConstants>
+    <DefineConstants Condition=" '$(BlazorMode)' == 'Server' ">$(DefineConstants);BlazorServer</DefineConstants>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  
+</Project>
