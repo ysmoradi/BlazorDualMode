@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Condition=" '$(BlazorMode)' == 'Server' " Remove="Pages\_Host_Client.cshtml" />
+    <Content Condition=" '$(BlazorMode)' == 'Client' " Include="..\Web\Pages\_Host.cshtml" Link="Pages\_Host.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

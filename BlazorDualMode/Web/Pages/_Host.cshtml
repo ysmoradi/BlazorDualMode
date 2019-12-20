@@ -5,6 +5,9 @@
     Layout = null;
 }
 
+@*Unlike most client side blazor projects, we use cshtml instead of html. This allows us to provide PreRendering(SSR) to our client blazor projects.*@
+@*Note that this file is being used for both client/server modes of blazor.*@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +34,13 @@
         <a class="dismiss">🗙</a>
     </div>
 
-    <script src="_framework/blazor.server.js"></script>
+    @if (BlazorDualMode.Shared.BlazorDualModeDetector.Current.IsRunningServerSideBlazor())
+    {
+        <script src="_framework/blazor.server.js"></script>
+    }
+    @if (BlazorDualMode.Shared.BlazorDualModeDetector.Current.IsRunningClientSideBlazor())
+    {
+        <script src="_framework/blazor.webassembly.js"></script>
+    }
 </body>
 </html>

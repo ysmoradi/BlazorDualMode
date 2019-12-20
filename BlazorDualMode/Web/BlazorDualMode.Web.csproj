@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <Content Condition=" '$(BlazorMode)' == 'Client' " Remove="appsettings.json" />
-    <Content Condition=" '$(BlazorMode)' == 'Client' " Remove="Pages\_Host_Server.cshtml" />
+    <Content Condition=" '$(BlazorMode)' == 'Client' " Remove="Pages\_Host.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
