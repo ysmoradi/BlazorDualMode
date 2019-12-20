@@ -39,7 +39,9 @@ namespace BlazorDualMode.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+#if BlazorClient
                 app.UseBlazorDebugging();
+#endif
             }
 
             app.UseStaticFiles();
