@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Condition=" '$(BlazorMode)' == 'Client' " Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.0-preview5.20216.8" />
+    <PackageReference Condition=" '$(BlazorMode)' == 'Client' " Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.0-rc1.20223.4" />
   </ItemGroup>
 
   <ItemGroup>
