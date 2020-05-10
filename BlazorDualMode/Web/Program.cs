@@ -4,22 +4,30 @@ using Microsoft.AspNetCore.Blazor.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 #endif
+using System.Threading.Tasks;
 
 namespace BlazorDualMode.Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args)
+            await CreateHostBuilder(args)
                 .Build()
-                .Run();
+                .RunAsync();
         }
 
 #if BlazorClient
-        public static IWebAssemblyHostBuilder CreateHostBuilder(string[] args) =>
-            BlazorWebAssemblyHost.CreateDefaultBuilder()
-                .UseBlazorStartup<Startup>();
+        public static WebAssemblyHostBuilder CreateHostBuilder(string[] args)
+        {
+            var builder = WebAssemblyHostBuilder.CreateDefault();
+
+            builder.RootComponents.Add<App>("app");
+
+            new Startup().ConfigureServices(builder.Services);
+
+            return builder;
+        }
 #elif BlazorServer
         public static IHostBuilder CreateHostBuilder(string[] args) => Host
             .CreateDefaultBuilder(args)

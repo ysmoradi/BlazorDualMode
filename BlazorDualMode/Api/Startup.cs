@@ -46,7 +46,7 @@ namespace BlazorDualMode.Api
 
             app.UseStaticFiles();
 #if BlazorClient
-            app.UseClientSideBlazorFiles<Web.Startup>();
+            app.UseClientSideBlazorFiles<Web.Program>();
 #endif
 
             app.UseRouting();

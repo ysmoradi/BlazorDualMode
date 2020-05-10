@@ -1,6 +1,4 @@
-#if BlazorClient
-using Microsoft.AspNetCore.Components.Builder;
-#elif BlazorServer
+#if BlazorServer
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -34,13 +32,6 @@ namespace BlazorDualMode.Web
             }).Configure<BrotliCompressionProviderOptions>(opt => opt.Level = CompressionLevel.Optimal);
 #endif
         }
-
-#if BlazorClient
-        public void Configure(IComponentsApplicationBuilder app)
-        {
-            app.AddComponent<App>("app");
-        }
-#endif
 
 #if BlazorServer
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
