@@ -1,5 +1,6 @@
 ﻿#if BlazorClient
-using Microsoft.AspNetCore.Blazor.Hosting;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 #elif BlazorServer
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +24,8 @@ namespace BlazorDualMode.Web
             var builder = WebAssemblyHostBuilder.CreateDefault();
 
             builder.RootComponents.Add<App>("app");
+
+            builder.Services.AddBaseAddressHttpClient();
 
             new Startup().ConfigureServices(builder.Services);
 

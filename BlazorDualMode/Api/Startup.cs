@@ -29,7 +29,9 @@ namespace BlazorDualMode.Api
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "application/octet-stream" });
                 opts.Providers.Add<BrotliCompressionProvider>();
-            }).Configure<BrotliCompressionProviderOptions>(opt => opt.Level = CompressionLevel.Optimal);
+            })
+                .Configure<BrotliCompressionProviderOptions>(opt => opt.Level = CompressionLevel.Fastest)
+                .Configure<GzipCompressionProviderOptions>(opt => opt.Level = CompressionLevel.Fastest);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -40,13 +42,13 @@ namespace BlazorDualMode.Api
             {
                 app.UseDeveloperExceptionPage();
 #if BlazorClient
-                app.UseBlazorDebugging();
+                app.UseWebAssemblyDebugging();
 #endif
             }
 
             app.UseStaticFiles();
 #if BlazorClient
-            app.UseClientSideBlazorFiles<Web.Program>();
+            app.UseBlazorFrameworkFiles();
 #endif
 
             app.UseRouting();
@@ -55,7 +57,7 @@ namespace BlazorDualMode.Api
             {
                 endpoints.MapDefaultControllerRoute();
 #if BlazorClient
-                endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapFallbackToFile("index.html");
 #endif
             });
         }
