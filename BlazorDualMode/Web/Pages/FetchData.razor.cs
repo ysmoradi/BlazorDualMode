@@ -1,5 +1,5 @@
 ﻿using BlazorDualMode.Shared;
-using Microsoft.AspNetCore.Components;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace BlazorDualMode.Web.Pages
@@ -10,7 +10,7 @@ namespace BlazorDualMode.Web.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            forecasts = await Http.GetJsonAsync<WeatherForecast[]>("WeatherForecast");
+            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
         }
     }
 }
