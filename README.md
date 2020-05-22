@@ -26,3 +26,5 @@ if (BlazorDualModeDetector.IsRunningServerSideBlazor())
 #endif
 
 ```
+
+It's recommended to clear your browser's cache while switching between server and client/wasm modes!

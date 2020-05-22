@@ -29,7 +29,9 @@ namespace BlazorDualMode.Web
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "application/octet-stream" });
                 opts.Providers.Add<BrotliCompressionProvider>();
-            }).Configure<BrotliCompressionProviderOptions>(opt => opt.Level = CompressionLevel.Optimal);
+            })
+                .Configure<BrotliCompressionProviderOptions>(opt => opt.Level = CompressionLevel.Fastest)
+                .Configure<GzipCompressionProviderOptions>(opt => opt.Level = CompressionLevel.Fastest);
 #endif
         }
 
