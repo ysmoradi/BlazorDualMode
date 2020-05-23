@@ -17,16 +17,18 @@ namespace BlazorDualMode.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+#if BlazorClient
             services.AddScoped(c =>
             {
                 // this is for pre rendering of blazor client/wasm
                 // Using this registration + registrations provided in Program.cs/Startup.cs of BlazorDualMode.Web project,
                 // you can inject HttpClient and call BlazorDualMode.Api api controllers in blazor pages.
-                // for other usages of http client, for example calling 3rd party apis, please use services.AddHttpClient("NamedHttpClient") and use that alongside with IHttpClientFactory.CreateClient("NamedHttpClient")
+                // for other usages of http client, for example calling 3rd party apis, please use services.AddHttpClient("NamedHttpClient"), then inject IHttpClientFactory and use its CreateClient("NamedHttpClient") method.
                 return new HttpClient { BaseAddress = new Uri(c.GetRequiredService<NavigationManager>().BaseUri) };
             });
-            services.AddMvcCore();
             services.AddRazorPages();
+#endif
+            services.AddMvcCore();
             services.AddResponseCompression(opts =>
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "application/octet-stream" });
