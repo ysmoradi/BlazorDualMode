@@ -18,17 +18,18 @@ namespace BlazorDualMode.Web
         public void ConfigureServices(IServiceCollection services)
         {
 #if BlazorServer
-            services.AddHttpClient("DefaultHttpClient", (serviceProvider, httpClient) =>
+            services.AddHttpClient("ApiHttpClient", (serviceProvider, httpClient) =>
             {
                 httpClient.BaseAddress = new Uri(serviceProvider.GetRequiredService<IConfiguration>()["ApiServerAddress"]);
             });
-            services.AddTransient(c => c.GetRequiredService<IHttpClientFactory>().CreateClient("DefaultHttpClient"));
+            services.AddTransient(c => c.GetRequiredService<IHttpClientFactory>().CreateClient("ApiHttpClient"));
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddResponseCompression(opts =>
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "application/octet-stream" });
                 opts.Providers.Add<BrotliCompressionProvider>();
+                opts.Providers.Add<GzipCompressionProvider>();
             })
                 .Configure<BrotliCompressionProviderOptions>(opt => opt.Level = CompressionLevel.Fastest)
                 .Configure<GzipCompressionProviderOptions>(opt => opt.Level = CompressionLevel.Fastest);
