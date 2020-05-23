@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,13 +17,14 @@ namespace BlazorDualMode.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddHttpClient("ApiHttpClient", (serviceProvider, httpClient) => /*This HtmlClient is being used in PreRendering of BlazorClient only. See Pages\_Host.cshtml */
+            services.AddScoped(c =>
             {
-                Uri requestUrl = new Uri(serviceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext.Request.GetDisplayUrl());
-                string baseUrl = requestUrl.GetLeftPart(UriPartial.Authority); // something like https://localhost:5001/ (The address of your host api)
-                httpClient.BaseAddress = new Uri(baseUrl);
+                // this is for pre rendering of blazor client/wasm
+                // Using this registration + registrations provided in Program.cs/Startup.cs of BlazorDualMode.Web project,
+                // you can inject HttpClient and call BlazorDualMode.Api api controllers in blazor pages.
+                // for other usages of http client, for example calling 3rd party apis, please use services.AddHttpClient("NamedHttpClient") and use that alongside with IHttpClientFactory.CreateClient("NamedHttpClient")
+                return new HttpClient { BaseAddress = new Uri(c.GetRequiredService<NavigationManager>().BaseUri) };
             });
-            services.AddTransient(c => c.GetRequiredService<IHttpClientFactory>().CreateClient("ApiHttpClient"));
             services.AddMvcCore();
             services.AddRazorPages();
             services.AddResponseCompression(opts =>
