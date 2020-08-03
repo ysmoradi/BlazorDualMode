@@ -2,8 +2,8 @@
 
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
-		<RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
-		<UseBlazorWebAssembly>true</UseBlazorWebAssembly>
+		<RuntimeIdentifier Condition=" '$(BlazorMode)' == 'Client' ">browser-wasm</RuntimeIdentifier>
+		<UseBlazorWebAssembly Condition=" '$(BlazorMode)' == 'Client' ">true</UseBlazorWebAssembly>
 	</PropertyGroup>
 
 	<ItemGroup>
