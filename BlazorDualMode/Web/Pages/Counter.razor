@@ -4,4 +4,8 @@
 
 <p>Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<TelerikButton Primary="true" @onclick="IncrementCount">Click me</TelerikButton>
+
+<TelerikDateTimePicker @bind-Value="datePickerValue"></TelerikDateTimePicker>
+
+@datePickerValue

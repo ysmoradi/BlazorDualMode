@@ -17,6 +17,8 @@ namespace BlazorDualMode.Web
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTelerikBlazor();
+
 #if BlazorServer
             services.AddHttpClient("ApiHttpClient", (serviceProvider, httpClient) =>
             {
