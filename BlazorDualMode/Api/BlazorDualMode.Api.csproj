@@ -16,6 +16,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Properties\PublishProfiles\" />
+	  <Watch Include="..\Web\**\*.razor;..\Web\**\*.scss;..\Web\**\*.cs;..\Web\**\*.cshtml" />
 	</ItemGroup>
 
 </Project>
