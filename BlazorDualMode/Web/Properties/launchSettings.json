@@ -1,12 +1,23 @@
 {
-  "profiles": {
-    "BlazorDualMode.Web": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "https://localhost:4001;http://localhost:4000"
+    "profiles": {
+        "BlazorDualMode.Web": {
+            "commandName": "Project",
+            "launchBrowser": true,
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "applicationUrl": "https://localhost:4001;http://localhost:4000"
+        },
+        "BlazorDualMode-Watch": {
+            "executablePath": "dotnet.exe",
+            "workingDirectory": "$(ProjectDir)",
+            "commandLineArgs": "watch run",
+            "launchBrowser": true,
+            "launchUrl": "/",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "applicationUrl": "http://localhost:4000"
+        }
     }
-  }
 }
