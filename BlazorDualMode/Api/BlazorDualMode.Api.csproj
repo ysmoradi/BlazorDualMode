@@ -6,7 +6,7 @@
 
 	<ItemGroup>
 		<Content Condition=" '$(BlazorMode)' == 'Client' " Include="..\Web\Pages\_Host.cshtml" Link="Pages\_Host.cshtml" />
-		<PackageReference Condition=" '$(BlazorMode)' == 'Client' " Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.0-preview.8.20414.8" />
+		<PackageReference Condition=" '$(BlazorMode)' == 'Client' " Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.0-rc.1.20451.17" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -14,7 +14,7 @@
 		<ProjectReference Include="..\Shared\BlazorDualMode.Shared.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<ItemGroup>	
 	  <Folder Include="Properties\PublishProfiles\" />
 	  <Watch Include="..\Web\**\*.razor;..\Web\**\*.scss;..\Web\**\*.cs;..\Web\**\*.cshtml" />
 	</ItemGroup>

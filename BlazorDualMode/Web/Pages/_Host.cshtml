@@ -27,8 +27,9 @@
     }
 </head>
 <body>
+
     <app>
-        <component type="typeof(App)" render-mode="ServerPrerendered" />
+        <component type="typeof(BlazorDualMode.Web.App)" render-mode="@(BlazorDualMode.Shared.BlazorDualModeDetector.Current.IsRunningClientSideBlazor() ? RenderMode.Static : RenderMode.ServerPrerendered)" />
     </app>
 
     <div id="blazor-error-ui">
