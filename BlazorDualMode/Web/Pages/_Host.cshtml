@@ -17,19 +17,12 @@
     <base href="~/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
-    @if (BlazorDualMode.Shared.BlazorDualModeDetector.Current.IsRunningServerSideBlazor())
-    {
-        <link href="_content/BlazorDualMode.Web/_framework/scoped.styles.css" rel="stylesheet" />
-    }
-    @if (BlazorDualMode.Shared.BlazorDualModeDetector.Current.IsRunningClientSideBlazor())
-    {
-        <link href="_framework/scoped.styles.css" rel="stylesheet" />
-    }
+    <link href="BlazorDualMode.Web.styles.css" rel="stylesheet" />
 </head>
 <body>
 
     <app>
-        <component type="typeof(BlazorDualMode.Web.App)" render-mode="@(BlazorDualMode.Shared.BlazorDualModeDetector.Current.IsRunningClientSideBlazor() ? RenderMode.Static : RenderMode.ServerPrerendered)" />
+        <component type="typeof(App)" render-mode="@(BlazorDualMode.Shared.BlazorDualModeDetector.Current.IsRunningClientSideBlazor() ? RenderMode.Static : RenderMode.ServerPrerendered)" />
     </app>
 
     <div id="blazor-error-ui">
