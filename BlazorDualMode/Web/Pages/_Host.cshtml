@@ -15,26 +15,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BlazorDualMode.Web</title>
     <base href="~/" />
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" asp-append-version="true" />
-    <link href="css/site.css" rel="stylesheet" asp-append-version="true" />
     <link href="BlazorDualMode.Web.styles.css" rel="stylesheet" asp-append-version="true" />
 </head>
 <body>
 
     <app>
-        <component type="typeof(App)" render-mode="@(BlazorDualMode.Shared.BlazorDualModeDetector.Current.IsRunningClientSideBlazor() ? RenderMode.Static : RenderMode.ServerPrerendered)" />
+        @if (BlazorDualMode.Shared.BlazorDualModeDetector.Current.IsRunningServerSideBlazor())
+        {
+            <component type="typeof(App)" render-mode="@RenderMode.Server" />
+        }
     </app>
-
-    <div id="blazor-error-ui">
-        <environment include="Staging,Production">
-            An error has occurred. This application may no longer respond until reloaded.
-        </environment>
-        <environment include="Development">
-            An unhandled exception has occurred. See browser dev tools for details.
-        </environment>
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
 
     @if (BlazorDualMode.Shared.BlazorDualModeDetector.Current.IsRunningServerSideBlazor())
     {
@@ -45,5 +35,6 @@
         <script src="_framework/blazor.webassembly.js" asp-append-version="true"></script>
     }
     <script src="_content/Microsoft.AspNetCore.Components.Web.Extensions/headManager.js" asp-append-version="true"></script>
+    <script src="scripts/blazorDualMode.js" asp-append-version="true"></script>
 </body>
 </html>

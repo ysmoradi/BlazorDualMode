@@ -2,11 +2,11 @@
 {
     public partial class Counter
     {
-        int currentCount = 0;
+        public int CurrentCount { get; set; }
 
-        void IncrementCount()
+        public void IncrementCount()
         {
-            currentCount++;
+            CurrentCount++;
         }
     }
 }

@@ -5,7 +5,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="SourceLink.Copy.PdbFiles" Version="2.8.3" PrivateAssets="All" />
 		<SupportedPlatform Include="browser" />
+		<PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="7.0.0" />
 	</ItemGroup>
 
 </Project>

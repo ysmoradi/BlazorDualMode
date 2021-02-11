@@ -1,0 +1,19 @@
+﻿{
+  "BitCodeGeneratorConfigs": {
+    "BitCodeGeneratorMappings": [
+      {
+        "GenerationType": "CSharpHttpClient",
+        "Route": "BlazorDualMode",
+        "DestinationFileName": "Bit\\BlazorDualMode.Model.Context",
+        "SourceProjects": [
+          {
+            "Name": "BlazorDualMode.Api"
+          }
+        ],
+        "DestinationProject": {
+          "Name": "BlazorDualMode.Web"
+        }
+      }
+    ]
+  }
+}

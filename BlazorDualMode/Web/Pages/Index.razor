@@ -1,7 +1,16 @@
 ﻿@page "/"
 
+@inherits BitPageBase
+@attribute [AllowAnonymous]
+
 <Title Value="Index" />
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+<input type="text" @bind-value="Username" />
+<input type="password" @bind-value="Password" />
+<button @onclick="@Invoke(Login)">Login</button>
+
+<button @onclick="@Invoke(Logout)">Logout</button>

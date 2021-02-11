@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore;
+﻿using Bit.Owin;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
@@ -9,16 +9,13 @@ namespace BlazorDualMode.Api
     {
         public static async Task Main(string[] args)
         {
-            await CreateHostBuilder(args)
-                .Build()
+            await BuildWebHost(args)
                 .RunAsync();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        public static IWebHost BuildWebHost(string[] args) =>
+            BitWebHost.CreateDefaultBuilder(args)
+                .UseStartup<AppStartup>()
+                .Build();
     }
 }

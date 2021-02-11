@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 #endif
 using Microsoft.Extensions.DependencyInjection;
-using System.IO.Compression;
-using System.Linq;
-using System.Net.Http;
-using System;
+using Bit.Http.Contracts;
+using Bit.Http.Implementations;
+using Microsoft.AspNetCore.Components.Authorization;
+using BlazorDualMode.Web.Implementations;
 
 namespace BlazorDualMode.Web
 {
@@ -17,10 +17,21 @@ namespace BlazorDualMode.Web
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthorizationCore();
+
+            services.AddScoped<ISecurityService, DefaultSecurityService>();
+            services.AddTransient<ITokenProvider, DefaultTokenProvider>();
+
+            services.AddScoped<AuthenticationStateProvider, BlazorDualModeAuthenticationStateProvider>();
+            services.AddTransient(serviceProvider => (BlazorDualModeAuthenticationStateProvider)serviceProvider.GetRequiredService<AuthenticationStateProvider>());
+
 #if BlazorServer
             services.AddHttpClient("ApiHttpClient", (serviceProvider, httpClient) =>
             {
                 httpClient.BaseAddress = new Uri(serviceProvider.GetRequiredService<IConfiguration>()["ApiServerAddress"]);
+                Token? token = serviceProvider.GetRequiredService<ITokenProvider>().GetToken();
+                if (token != null)
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.access_token);
             });
             services.AddTransient(c => c.GetRequiredService<IHttpClientFactory>().CreateClient("ApiHttpClient"));
             services.AddRazorPages();

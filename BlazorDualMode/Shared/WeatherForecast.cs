@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlazorDualMode.Shared
 {
+    [ComplexType]
     public class WeatherForecast
     {
         public DateTime Date { get; set; }

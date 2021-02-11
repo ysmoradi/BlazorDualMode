@@ -338,3 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/BlazorDualMode/Web/wwwroot/scripts/blazorDualMode.js.map
+/BlazorDualMode/Web/wwwroot/scripts/blazorDualMode.js
+/BlazorDualMode/Web/Bit/BlazorDualMode.Model.Context.cs
